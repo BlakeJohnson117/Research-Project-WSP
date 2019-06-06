@@ -1,0 +1,261 @@
+from sense_hat import SenseHat
+from datetime import datetime
+
+sense = SenseHat()
+sense.clear()
+
+now = datetime.now()
+mm = str(now.month)
+dd = str(now.day)
+yyyy = str(now.year)
+hour = str(now.hour)
+mi = str(now.minute)
+ss = str(now.second)
+
+temp = sense.get_temperature()
+humidity = sense.get_humidity()
+movement = sense.get_accelerometer()
+pressure = sense.get_pressure()
+g = (0, 255, 0)
+b = (0, 0, 0)
+bl = (0, 0, 255)
+y = (255, 255, 0)
+
+creeper_pixels = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, g, g, g, g
+]
+clean_pixels = [
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b
+]
+blue_pixels = [
+    bl, bl, bl, bl, bl, bl, bl, bl,
+    bl, bl, bl, bl, bl, bl, bl, bl,
+    bl, bl, bl, bl, bl, bl, bl, bl,
+    bl, bl, bl, bl, bl, bl, bl, bl,
+    bl, bl, bl, bl, bl, bl, bl, bl,
+    bl, bl, bl, bl, bl, bl, bl, bl,
+    bl, bl, bl, bl, bl, bl, bl, bl,
+    bl, bl, bl, bl, bl, bl, bl, bl
+]
+yellow_pixels = [
+    y, y, y, y, y, y, y, y,
+    y, y, y, y, y, y, y, y,
+    y, y, y, y, y, y, y, y,
+    y, y, y, y, y, y, y, y,
+    y, y, y, y, y, y, y, y,
+    y, y, y, y, y, y, y, y,
+    y, y, y, y, y, y, y, y,
+    y, y, y, y, y, y, y, y
+]
+
+print("Welcome to Organism Tracker 1.0! \n")
+print(str(mm) + "/" + str(dd) + "/" + str(yyyy) + " " + str(hour) + ":" + str(mi) + ":" + str(ss))
+print("\n")
+
+if temp >= 41:
+  print("No organism detected! Maybe the temperature has to be less than 40 degrees...")
+
+elif temp <=40:
+
+  print("Organism Detected!")
+  while True:
+    choice=input("What do you want to do? \n\n 0=Check_Temperature \n 1=Check_Movement \n 2=Check_Humidity \n 3=Check_Pressure \n 4=Observe Organism\n \n")
+    if choice=="0":
+      print("The temperature is: " + str(temp))
+
+
+      if temp <= 27:
+        print("Blood pressure is stable: 100 mmHg \n\nThe organism seems fine at this temperature")
+        sense.set_pixel(2, 2, (255, 255, 255))
+        sense.set_pixel(4, 2, (255, 255, 255))
+        sense.set_pixel(1, 5, (255, 255, 255))
+        sense.set_pixel(2, 6, (255, 255, 255))
+        sense.set_pixel(3, 6, (255, 255, 255))
+        sense.set_pixel(4, 6, (255, 255, 255))
+        sense.set_pixel(5, 5, (255, 255, 255))
+
+      elif temp <= 28:
+        print("Blood pressure is: 120 mmHg \n\nThe organism is enjoying this weather!")
+        print("\n")
+        sense.set_pixel(2, 2, (255, 255, 255))
+        sense.set_pixel(4, 2, (255, 255, 255))
+        sense.set_pixel(1, 5, (255, 255, 255))
+        sense.set_pixel(2, 6, (255, 255, 255))
+        sense.set_pixel(3, 6, (255, 255, 255))
+        sense.set_pixel(4, 6, (255, 255, 255))
+        sense.set_pixel(5, 5, (255, 255, 255))
+
+
+      elif temp <= 29:
+        print("Blood pressure is: 150 mmHg \n\nThe organism appears fine \n")
+        print("\n")
+        sense.set_pixel(2, 2, (255, 255, 255))
+        sense.set_pixel(4, 2, (255, 255, 255))
+        sense.set_pixel(1, 5, (255, 255, 255))
+        sense.set_pixel(2, 6, (255, 255, 255))
+        sense.set_pixel(3, 6, (255, 255, 255))
+        sense.set_pixel(4, 6, (255, 255, 255))
+        sense.set_pixel(5, 5, (255, 255, 255))
+
+
+      elif temp <= 30:
+        print ("Blood pressure is: 200 mmHg \n\nIt seems the organism does not care for this temperature \n")
+        print("\n")
+        #mediocre face
+        sense.set_pixel(2, 2, (255, 255, 255))
+        sense.set_pixel(4, 2, (255, 255, 255))
+        sense.set_pixel(1, 5, (255, 255, 255))
+        sense.set_pixel(2, 5, (255, 255, 255))
+        sense.set_pixel(3, 5, (255, 255, 255))
+        sense.set_pixel(4, 5, (255, 255, 255))
+        sense.set_pixel(5, 5, (255, 255, 255))
+
+      elif temp <= 31:
+        print ("Blood pressure is 250 mmHg \n\nThe organism does not like this temperature! Bring it to a cooler climate ASAP! \n")
+        print("\n")
+        #sad face
+        sense.set_pixel(2, 2, (255, 255, 255))
+        sense.set_pixel(4, 2, (255, 255, 255))
+        sense.set_pixel(1, 6, (255, 255, 255))
+        sense.set_pixel(2, 5, (255, 255, 255))
+        sense.set_pixel(3, 5, (255, 255, 255))
+        sense.set_pixel(4, 5, (255, 255, 255))
+        sense.set_pixel(5, 6, (255, 255, 255))
+
+      elif temp <= 32:
+        print("Blood pressure is: 300 mmHg \n\nIt appears the organism is about to expire... \n")
+        print("\n")
+        #sad face
+        sense.set_pixel(2, 2, (255, 255, 255))
+        sense.set_pixel(4, 2, (255, 255, 255))
+        sense.set_pixel(1, 6, (255, 255, 255))
+        sense.set_pixel(2, 5, (255, 255, 255))
+        sense.set_pixel(3, 5, (255, 255, 255))
+        sense.set_pixel(4, 5, (255, 255, 255))
+        sense.set_pixel(5, 6, (255, 255, 255))
+
+      else:
+        print("Blood pressure is: 0 mmHg \n \nThe organism appears dead \n")
+        print("\n")
+        #dead face
+        sense.set_pixel(1, 1, (255, 0, 0))
+        sense.set_pixel(3, 1, (255, 0, 0))
+        sense.set_pixel(4, 1, (255, 0, 0))
+        sense.set_pixel(6, 1, (255, 0, 0))
+        sense.set_pixel(2, 2, (255, 0, 0))
+        sense.set_pixel(5, 2, (255, 0, 0))
+        sense.set_pixel(1, 3, (255, 0, 0))
+        sense.set_pixel(4, 3, (255, 0, 0))
+        sense.set_pixel(6, 3, (255, 0, 0))
+        sense.set_pixel(3, 5, (255, 0, 0))
+        sense.set_pixel(4, 5, (255, 0, 0))
+        sense.set_pixel(2, 6, (255, 0, 0))
+        sense.set_pixel(5, 6, (255, 0, 0))
+        sense.set_pixel(3, 3, (255, 0, 0))
+
+
+    if choice=="1":
+
+      print(movement)
+      print( "The organism seems agitated from you moving it, it has emit a foul smell \n")
+      sense.set_pixels(creeper_pixels)
+
+      choice=input("What a terrible smell! This must be a PHYSICAL defense mechanism! \n \n Type SPRAY_CLEANER to clear the deadly threat!")
+      if choice==("SPRAY_CLEANER"):
+        sense.set_pixels(clean_pixels)
+        print("Good job, that physical response was a deadly neurotoxin \n")
+
+      elif():
+        print("\n")
+        print("You failed to stop the neurotoxin! *You grow disorientated and fall to the ground")
+
+        break
+
+
+
+    if choice == "2":
+      print("The Humidity is: \n " + str(humidity))
+      print("\n")
+
+      if humidity <= 30:
+        print("There seems no response from the organism")
+        sense.set_pixel(2, 2, (255, 255, 255))
+        sense.set_pixel(4, 2, (255, 255, 255))
+        sense.set_pixel(1, 5, (255, 255, 255))
+        sense.set_pixel(2, 6, (255, 255, 255))
+        sense.set_pixel(3, 6, (255, 255, 255))
+        sense.set_pixel(4, 6, (255, 255, 255))
+        sense.set_pixel(5, 5, (255, 255, 255))
+
+
+      elif humidity <= 50:
+        print("The organism seems uncomfortable")
+
+      elif humidity <= 100:
+        print("The organism is agitated and bound to attack")
+
+    if choice == "3":
+      print("The Pressure is: \n " + str(pressure))
+      print("\n")
+
+      if pressure <= 1000:
+        print("This organism does not seem to move. Maybe a low pressure environment is detrimental to it's health")
+        sense.set_pixel(1, 1, (255, 0, 0))
+        sense.set_pixel(3, 1, (255, 0, 0))
+        sense.set_pixel(4, 1, (255, 0, 0))
+        sense.set_pixel(6, 1, (255, 0, 0))
+        sense.set_pixel(2, 2, (255, 0, 0))
+        sense.set_pixel(5, 2, (255, 0, 0))
+        sense.set_pixel(1, 3, (255, 0, 0))
+        sense.set_pixel(4, 3, (255, 0, 0))
+        sense.set_pixel(6, 3, (255, 0, 0))
+        sense.set_pixel(3, 5, (255, 0, 0))
+        sense.set_pixel(4, 5, (255, 0, 0))
+        sense.set_pixel(2, 6, (255, 0, 0))
+        sense.set_pixel(5, 6, (255, 0, 0))
+        sense.set_pixel(3, 3, (255, 0, 0))
+
+      if pressure <= 1020:
+        print("The organism changed colour! \n It seems to be changing due to pressure!")
+        sense.set_pixels(blue_pixels)
+
+      elif pressure >= 1100:
+        print("What kind of response could this be? \n \nCould this organism thrive in a high pressure environment? \n")
+        sense.set_pixels(yellow_pixels)
+
+    if choice == "4":
+      print("The organism has several key features that stand out \n")
+      choice2=input("What do you want to observe?\n \n 5=Spikes \n 6=Muscles \n 7=Eyes \n 8=Teeth \n 9=Skin \n 10=Tail")
+      print("\n")
+
+      if choice2=="5":
+        print("This strange species has a series of spikes lining its spine.  Could these spikes be toxic? \n")
+
+      if choice2=="6":
+        print("This particular organism appears to be ripped.  Muscles on top of muscles!  I wonder what his max bench is? \n")
+
+      if choice2=="7":
+        print("This creature has similar eyes to that of a wild cat. Spooky... \n")
+
+      if choice2=="8":
+        print("Oh what large teeth you have!  Like a tiger and piranha had a baby! \n")
+
+      if choice2=="9":
+        print("Bumpy and luminescent skin.  If you look closely you can see its internal organs \n")
+
+      if choice2=="10":
+        print("A tail similar to that of a lynx, or bobcat, or mountain lion.... I don't even know the difference \n")
