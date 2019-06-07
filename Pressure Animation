@@ -267,7 +267,7 @@ sense.set_pixels(bug2)
 time.sleep(0.5)
 
 print("small bugs appear to feed on the rain! \n")
-print("Where theres bugs, theres fish and where there fish theres \n")
+print("Where there are bugs, there are fish \n \n and where there are fish there are \n")
 time.sleep(1)
 print(".")
 time.sleep(1)
@@ -299,6 +299,8 @@ time.sleep(1)
 sense.set_pixels(bleed2)
 time.sleep(1)
 sense.set_pixels(bleed3)
+
+print("Can you identify the changes?")
 
 
 
