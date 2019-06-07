@@ -1,0 +1,386 @@
+from sense_hat import SenseHat
+import time
+
+sense = SenseHat ()
+
+
+t = 35
+p = 1020
+h = 40
+a = 50
+count = 0
+w= 240
+# Define some colours
+g = (100, 100,100) # Gray
+b = (0, 0, 255) # Blue
+c = (0, 0, 0) #clear
+y = (255, 255, 0) #yellow
+l = (200, 200, 100) #lightning
+gr = (0, 255, 0) # bugs
+sh = (255, 255, 255)
+r = (255, 0, 25)
+
+data = []
+data.append("Temperature " + str(t))
+data.append("Pressure " + str(p))
+data.append("Humidity " + str(h))
+data.append('Time ' + str(count))
+data.append('Weight ' + str(w))
+
+nice_day = [
+    y, y, y, c, c, c, g, g,
+    y, y, y, c, g, g, c, c,
+    y, y, y, c, c, c, c, c,
+    c, c, c, c, c, c, c, c,
+    c, c, c, c, b, b, c, c,
+    b, c, c, b, b, c, c, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b
+]
+
+bolt = [
+    c, c, c, c, l, l, l, c,
+    c, c, c, c, c, l, l, c,
+    c, c, c, c, c, c, l, l,
+    c, c, c, c, l, l, l, c,
+    c, c, c, l, l, c, c, c,
+    c, c, c, c, c, l, c, c,
+    c, c, c, c, c, l, l, c,
+    c, c, c, c, c, c, l, c
+]
+
+flash = [
+    l, l, l, l, l, l, l, l,
+    l, l, l, l, l, l, l, l,
+    l, l, l, l, l, l, l, l,
+    l, l, l, l, l, l, l, l,
+    l, l, l, l, l, l, l, l,
+    l, l, l, l, l, l, l, l,
+    l, l, l, l, l, l, l, l,
+    l, l, l, l, l, l, l, l
+
+]
+
+cloud1 = [
+    y, y, g, g, c, g, g, c,
+    g, y, y, g, g, c, c, g,
+    g, y, y, c, c, c, c, g,
+    c, c, c, c, c, c, c, c,
+    c, c, c, b, b, c, c, c,
+    b, c, b, b, c, c, b, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b
+]
+
+cloud2 = [
+    g, y, g, g, c, g, g, c,
+    g, g, g, g, c, g, g, g,
+    g, g, y, c, c, c, c, g,
+    c, c, c, c, c, c, c, c,
+    c, c, c, c, c, b, b, c,
+    c, c, c, c, b, b, c, c,
+    b, b, b, b, b, b, b, c,
+    b, b, b, b, b, b, b, b]
+
+cloud3 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, g, c, c, c, c, g,
+    c, c, c, c, c, c, c, c,
+    c, c, c, c, c, c, c, c,
+    b, b, b, c, b, b, c, c,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b]
+
+rain1 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, y, c, c, b, c, b,
+    c, b, c, b, c, c, c, c,
+    c, c, c, c, c, c, b, c,
+    b, c, c, c, c, b, c, c,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b]
+
+rain2 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, g, b, c, c, c, c,
+    c, b, c, c, b, c, c, b,
+    b, c, c, c, c, c, b, b,
+    b, b, c, b, b, b, c, b,
+    b, b, b, b, b, b, b, b,
+    b, b, b, b, b, b, b, b]
+
+bug1 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, g, c, c, b, c, b,
+    c, b, c, b, c, c, c, c,
+    c, c, c, c, c, c, b, c,
+    b, c, c, c, c, b, c, c,
+    b, gr, b, b, gr, b, b, gr,
+    b, b, b, b, b, b, gr, b]
+
+bug2 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, g, b, c, c, c, c,
+    c, b, c, c, b, c, c, b,
+    b, c, c, c, c, c, b, b,
+    b, b, c, b, b, b, c, b,
+    b, b, b, b, b, b, gr, b,
+    gr, b, b, gr, b, b, b, gr]
+
+shark = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, y, c, c, b, c, c,
+    b, c, c, b, c, c, c, b,
+    c, c, c, c, c, c, c, c,
+    b, b, c, sh, b, gr, c, gr,
+    sh, b, b, sh, sh, b, b, b,
+    sh, sh, sh, sh, sh, sh, b, b]
+
+bleed1 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, y, c, c, b, c, c,
+    b, c, c, b, c, c, c, b,
+    c, c, c, c, c, c, c, c,
+    b, b, c, r, b, b, gr, c,
+    sh, b, b, r, r, b, b, b,
+    sh, r, sh, sh, sh, sh, b, b]
+
+bleed2 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, y, c, c, b, c, c,
+    b, c, c, b, c, c, c, b,
+    c, c, c, c, c, c, c, c,
+    b, b, c, r, b, b, c, c,
+    r, b, b, r, r, b, b, b,
+    r, r, r, r, r, r, b, b]
+
+bleed3 = [
+    g, g, g, g, g, g, g, g,
+    g, g, g, g, c, g, g, g,
+    g, g, y, c, c, b, c, c,
+    b, c, c, b, c, c, c, b,
+    c, c, c, c, c, c, c, c,
+    b, r, c, r, r, b, c, c,
+    r, r, r, r, r, r, r, r,
+    r, r, r, r, r, r, b, b]
+
+
+print("Life uh... finds a way \n")
+sense.set_pixels(nice_day)
+time.sleep(5)
+print("Its a beautiful day \n")
+time.sleep(5)
+print("???")
+
+sense.set_pixels(cloud1)
+time.sleep(.7)
+sense.set_pixels(cloud2)
+time.sleep(.7)
+sense.set_pixels(cloud3)
+
+
+print("Clouds begin to swirl in the sky \n")
+time.sleep(5)
+
+print("Pressure begins to drop \n")
+print("Current Pressure is: " + str(p))
+
+print("Winds howling \n")
+print(".")
+time.sleep(1)
+print(".")
+time.sleep(1)
+print(".")
+
+#Lightning flash animation
+sense.set_pixels(flash)
+time.sleep(0.3)
+sense.set_pixels(bolt)
+time.sleep(0.3)
+sense.set_pixels(flash)
+time.sleep(0.3)
+sense.set_pixels(bolt)
+time.sleep(0.3)
+sense.set_pixels(flash)
+time.sleep(0.3)
+sense.set_pixels(bolt)
+time.sleep(0.3)
+sense.set_pixels(flash)
+time.sleep(0.3)
+sense.set_pixels(bolt)
+
+
+print("Lightning detected! \n")
+
+
+print("Rain begins to fall \n")
+sense.set_pixels(rain1)
+time.sleep(0.5)
+sense.set_pixels(rain2)
+time.sleep(0.5)
+sense.set_pixels(rain1)
+time.sleep(0.5)
+sense.set_pixels(rain2)
+time.sleep(0.5)
+sense.set_pixels(rain1)
+time.sleep(0.5)
+sense.set_pixels(rain2)
+time.sleep(0.5)
+sense.set_pixels(rain1)
+time.sleep(0.5)
+sense.set_pixels(rain2)
+print("small bugs appear to feed on the rain! \n")
+time.sleep(0.5)
+
+
+sense.set_pixels(bug1)
+time.sleep(0.5)
+sense.set_pixels(bug2)
+time.sleep(0.5)
+sense.set_pixels(bug1)
+time.sleep(0.5)
+sense.set_pixels(bug2)
+time.sleep(0.5)
+sense.set_pixels(bug1)
+time.sleep(0.5)
+sense.set_pixels(bug2)
+time.sleep(0.5)
+sense.set_pixels(bug1)
+time.sleep(0.5)
+sense.set_pixels(bug2)
+time.sleep(0.5)
+sense.set_pixels(bug1)
+time.sleep(0.5)
+sense.set_pixels(bug2)
+time.sleep(0.5)
+sense.set_pixels(bug1)
+time.sleep(0.5)
+sense.set_pixels(bug2)
+time.sleep(0.5)
+
+print("small bugs appear to feed on the rain! \n")
+print("Where theres bugs, theres fish and where there fish theres \n")
+time.sleep(1)
+print(".")
+time.sleep(1)
+print(".")
+time.sleep(1)
+print(".")
+time.sleep(5)
+print("BIGGER FISH\n")
+
+
+print("Presence of movement detected underneath... \n")
+time.sleep(1)
+print(".")
+time.sleep(1)
+print(".")
+time.sleep(1)
+print(".")
+time.sleep(5)
+
+
+sense.set_pixels(shark)
+print("! \n")
+print("Organism X! \n")
+print("Its feeding on the sharks eating the fish who are eating the bugs! \n")
+
+
+sense.set_pixels(bleed1)
+time.sleep(1)
+sense.set_pixels(bleed2)
+time.sleep(1)
+sense.set_pixels(bleed3)
+
+
+
+
+time.sleep(10)
+while p >= 950:
+    p = p - 2
+    print(data)
+    data[1] = ("Pressure " + str(p))
+    if h <= 74:
+        h = h + 1
+        data[2] = ("Humidity " + str(h))
+        count = count + 2
+    data[3] = ('Time ' + str(count))
+
+
+while t > 20:
+    if p >= 948:
+        t = 20
+        data[0] = ("Temperature " + str(t))
+    if p < 950:
+        h = 100
+        data[2] = ("Humidity " + str(h))
+    if h >= 75:
+        p= p + 500
+        data[1] = ("Pressure " + str(p))
+
+
+    if h >= 75:
+        count = count + 0.25
+        data[3] = ('Time ' + str(count))
+
+        print(data)
+        count = count + 0.25
+        data[3] = ('Time ' + str(count))
+        print(data)
+        count = count + 0.25
+        data[3] = ('Time ' + str(count))
+        print(data)
+        count = count + 0.25
+        data[3] = ('Time ' + str(count))
+
+w = w + 78
+data[4] = ('Weight ' + str(w))
+print(data)
+
+t = 35
+p = 950
+h = 80
+count = count + 1
+
+data[0] = ("Temperature " + str(t))
+data[1] = ("Pressure " + str(p))
+data[2] = ("Humidity " + str(h))
+data[3] = ('Time ' + str(count))
+print(data)
+
+
+t = 35
+p = 1020
+h = 40
+u = 0
+
+# Pressure is going up.
+
+
+data = []
+data.append("Temperature " + str(t))
+data.append("Pressure " + str(p))
+data.append("Humidity " + str(h))
+
+
+while p <= 950:
+    p = p - 2
+    print(data)
+    data[1] = ("Pressure " + str(p))
+    if h <= 100:
+        h = h + 1
+        data[2] = ("Humidity " + str(h))
+
+while t > 20:
+    if p <= 950:
+        t = 20
+        data[0] = ("Temperature " + str(t))
+        print(data)
